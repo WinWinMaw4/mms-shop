@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../context/StateContext";
 
 const Nav = () => {
-    const {search, setSearch} = useStateContext();
+    const {search, setSearch , state:{cart}} = useStateContext();
   return (
     <nav className="flex items-center justify-between bg-gray-50 shadow-md px-5 py-2 my-5 rounded ">
       <Link to="/">
@@ -16,10 +16,12 @@ const Nav = () => {
         </div>
       </Link>
       <div className="flex items-center gap-5">
-        <div className="flex items-center gap-2 bg-header text-white px-4 py-2 rounded">
+      <Link to={'/cart'}>
+      <div className="flex items-center gap-2 bg-header text-white px-4 py-2 rounded">
           <FaShoppingCart />
-          <small>10</small>
+          <small>{cart.length}</small>
         </div>
+      </Link>
         <div className="flex items-center gap-2 border-2 rounded px-3 py-2">
           <FaSearch />
           <input
