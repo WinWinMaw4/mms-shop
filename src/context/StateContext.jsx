@@ -18,13 +18,30 @@ export const StateContextProvider = ({ children }) => {
       case "GET_PRODUCTS":
         return { ...state, products: action.payload };
       case "ADD_TO_CART":
-        return {...state, cart:[...state.cart, {...action.payload, qty: 1}]};
+        // return {...state, cart:[...state.cart, {...action.payload, qty: 1}]};
+        const item = action.payload;
+        const isExisted = state.cart.find(c => c.id === item.id);
+        if(isExisted) {
+          return {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === item.id ? { ...item, qty: 1, added:true } : { ...c }
+            ),
+          };
+        }else{
+          return {
+            ...state, cart:[...state.cart, {...item, qty: 1, added: true}]
+          }
+        }
       case "REMOVE_FROM_CART": 
         return {...state,cart:[...state.cart.filter(item => item.id !== action.payload.id)]}
+      case "CART_EMPTY"  :
+        return {...state, cart: (state.cat = [])}
       default:
         return state;
     }
   };
+
 
   const [state, dispatch] = useReducer(reducer, initialState);
 

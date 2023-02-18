@@ -4,6 +4,10 @@ import { useStateContext } from '../context/StateContext';
 const Card = ({product}) => {
 //   const {title, image, price,rating} = product;
 const {dispatch} = useStateContext(); 
+
+  const addToCart = (product) => {
+    dispatch({ type: "ADD_TO_CART", payload: product })
+  }
   return (
     <div className="w-80 border-2 p-5 rounded-lg transform transition hover:scale-105">
       <img src={product?.image} className="h-[200px] mx-auto my-3" alt="" />
@@ -21,12 +25,13 @@ const {dispatch} = useStateContext();
         <button
           onClick={() => dispatch({ type: "ADD_TO_CART", payload: product })}
           className="bg-info text-primary px-4 py-2 rounded shadow-lg transform transition hover:scale-90"
+          
         >
           Add To Cart
         </button>
         <Link to={`/detail/${product.id}`}>
-          <button className="bg-header text-primary px-4 py-2 rounded shadow-lg ml-3 transform transition hover:scale-90">
-            Product Detail
+          <button className="bg-header text-primary px-4 py-2 rounded shadow-lg ml-3 transform transition hover:scale-90 ">
+            Detail
           </button>
         </Link>
       </div>
